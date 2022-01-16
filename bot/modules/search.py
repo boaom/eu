@@ -1,7 +1,7 @@
-import requests
 import itertools
 import qbittorrentapi as qba
 
+from requests import get as rget
 from time import sleep
 from threading import Thread
 from html import escape
@@ -32,7 +32,11 @@ SITES = {
     "zooqle": "Zooqle",
     "kickass": "KickAss",
     "bitsearch": "Bitsearch",
-    "glodls":"Glodls",
+    "glodls": "Glodls",
+    "magnetdl": "MagnetDL",
+    "limetorrent": "LimeTorrent",
+    "torrentfunk": "TorrentFunk",
+    "torrentproject": "TorrentProject",
     "all": "All"
 }
 
@@ -98,7 +102,7 @@ def _search(key, site, message, tool):
     if tool == 'api':
         api = f"{SEARCH_API_LINK}/api/{site}/{key}"
         try:
-            resp = requests.get(api)
+            resp = rget(api)
             search_results = resp.json()
             if site == "all":
                 search_results = list(itertools.chain.from_iterable(search_results))
